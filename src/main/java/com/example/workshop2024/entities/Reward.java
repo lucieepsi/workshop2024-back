@@ -1,0 +1,28 @@
+package com.example.workshop2024.entities;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+@Table(name="reward")
+public class Reward {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="id_reward")
+    private int idReward;
+
+    @Column(name="description")
+    private String description;
+
+    @Column(name="type")
+    private String type;
+
+}
