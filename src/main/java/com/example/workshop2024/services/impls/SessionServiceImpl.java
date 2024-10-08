@@ -23,20 +23,30 @@ import lombok.RequiredArgsConstructor;
 public class SessionServiceImpl implements SessionService {
 
     private final SessionRepository sessionRepository;
+    private final UserService userService;
 
     public AverageResponse getWeeklyAverage(LoginDTO loginDTO) {
-        
+
+        String userEmail = loginDTO.getEmail();
+    
+        User user = userService.findByEmail(userEmail);
+ 
+        if (user == null) {
+            throw new RuntimeException("Utilisateur non trouvé");
+        }
+    
+        int idUser = user.getIdUser();
+    
         LocalDate startDate = LocalDate.now().with(TemporalAdjusters.previousOrSame(java.time.DayOfWeek.MONDAY));
         LocalDate endDate = LocalDate.now().with(TemporalAdjusters.next(java.time.DayOfWeek.SUNDAY));
 
-        AverageProjection result = sessionRepository.findAverage(startDate, endDate);
-
+        AverageProjection result = sessionRepository.findAverage(idUser, startDate, endDate);
+    
         Double averageCalories = (result.getAverageCalories() != null) ? result.getAverageCalories() : 0.0;
         Double averagePoints = (result.getAveragePoints() != null) ? result.getAveragePoints() : 0.0;
         Double averageDistance = (result.getAverageDistance() != null) ? result.getAverageDistance() : 0.0;
-    
-        System.out.println(result.getAverageCalories());
-
+  
         return new AverageResponse(averageCalories, averagePoints, averageDistance);
     }
+    
 }
