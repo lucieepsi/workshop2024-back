@@ -1,6 +1,8 @@
 package com.example.workshop2024.entities;
 
 import java.security.Timestamp;
+import java.time.LocalDate;
+import java.util.Date;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -27,7 +29,7 @@ public class Session {
     private Timestamp duration;
 
     @Column(name="distance")
-    private String distance;
+    private Double distance;
 
     @Column(name="rate")
     private int rate;
@@ -37,6 +39,9 @@ public class Session {
 
     @Column(name="points")
     private int points;
+
+    @Column(name="session_date")
+    private LocalDate sessionDate;
 
     @ManyToOne
     @JoinColumn(name="id_user")
