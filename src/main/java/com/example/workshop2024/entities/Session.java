@@ -1,7 +1,7 @@
 package com.example.workshop2024.entities;
 
 import java.security.Timestamp;
-import java.time.LocalDate;
+import java.time.*;
 import java.util.Date;
 
 import jakarta.persistence.Column;
@@ -42,6 +42,9 @@ public class Session {
 
     @Column(name="session_date")
     private LocalDate sessionDate;
+
+    @Column(name="start_time")
+    private LocalTime startTime;
 
     @ManyToOne
     @JoinColumn(name="id_user")

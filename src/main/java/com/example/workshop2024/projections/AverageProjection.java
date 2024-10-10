@@ -5,4 +5,5 @@ public interface AverageProjection {
     Double getAverageCalories();
     Double getAveragePoints();
     Double getAverageDistance();
+    Double getAverageRate();
 }
