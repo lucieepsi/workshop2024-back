@@ -5,6 +5,7 @@ import java.sql.Time;
 import java.time.LocalDate;
 import java.time.temporal.TemporalAdjusters;
 
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -15,6 +16,7 @@ import com.example.workshop2024.entities.Landing;
 import com.example.workshop2024.entities.Session;
 import com.example.workshop2024.entities.User;
 import com.example.workshop2024.projections.AverageProjection;
+import com.example.workshop2024.projections.SessionProjection;
 import com.example.workshop2024.repositories.LandingRepository;
 import com.example.workshop2024.repositories.RewardRepository;
 import com.example.workshop2024.repositories.SessionRepository;
@@ -52,8 +54,21 @@ public class SessionServiceImpl implements SessionService {
         Double averageCalories = (result.getAverageCalories() != null) ? result.getAverageCalories() : 0.0;
         Double averagePoints = (result.getAveragePoints() != null) ? result.getAveragePoints() : 0.0;
         Double averageDistance = (result.getAverageDistance() != null) ? result.getAverageDistance() : 0.0;
+        Double averageRate = (result.getAverageRate() != null) ? result.getAverageDistance() : 0.0;
+        Double averageDistanceKm = (averageDistance * 2.65) / 1000;
   
-        return new AverageResponse(averageCalories, averagePoints, averageDistance);
+        return new AverageResponse(averageCalories, averagePoints, averageDistance, averageRate, averageDistanceKm);
+    }
+
+    @Override
+    public Optional<SessionProjection> findLastSession(LoginDTO loginDTO) {
+        String userEmail = loginDTO.getEmail();
+        
+        User user = userService.findByEmail(userEmail);
+
+        int idUser = user.getIdUser();
+ 
+        return sessionRepository.findFirstByUser_IdUserOrderBySessionDateDesc(idUser);
     }
 
     public Session updateSession(ArduinoPacket arduinoPacket){
@@ -76,7 +91,7 @@ public class SessionServiceImpl implements SessionService {
         lastSession.setDistance(lastSession.getPoints()*2.65/1000);
         lastSession.setCalories((int)(lastSession.getDistance()*15));
         lastSession.setUser(user);
-        lastSession.setRate((lastSession.getRate()+(int)((arduinoPacket.getNbtours()*2.6c5/3)*3.6))/2);
+        lastSession.setRate((lastSession.getRate()+(int)((arduinoPacket.getNbtours()*2.65/3)*3.6))/2);
         lastSession.setSessionDate(LocalDate.now());
         
         if(arduinoPacket.getNbtours() == 0){
