@@ -3,6 +3,7 @@ package com.example.workshop2024.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.neo4j.Neo4jProperties.Authentication;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +15,7 @@ import com.example.workshop2024.dtos.LoginDTO;
 import com.example.workshop2024.entities.Session;
 import com.example.workshop2024.services.SessionService;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/api/sessions")
 public class SessionController {
