@@ -73,10 +73,10 @@ public class SessionServiceImpl implements SessionService {
 
 
         lastSession.setPoints(arduinoPacket.getNbtours() + lastSession.getPoints());
-        lastSession.setDistance(lastSession.getPoints()*1.8/1000);
+        lastSession.setDistance(lastSession.getPoints()*2.65/1000);
         lastSession.setCalories((int)(lastSession.getDistance()*15));
         lastSession.setUser(user);
-        lastSession.setRate((lastSession.getRate()+(int)(arduinoPacket.getNbtours()*1.8/3*3.6))/2);
+        lastSession.setRate((lastSession.getRate()+(int)((arduinoPacket.getNbtours()*2.6c5/3)*3.6))/2);
         lastSession.setSessionDate(LocalDate.now());
         
         if(arduinoPacket.getNbtours() == 0){
