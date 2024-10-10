@@ -1,5 +1,6 @@
 package com.example.workshop2024.services.impls;
 
+import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.example.workshop2024.entities.User;
@@ -25,5 +26,9 @@ public class UserServiceImpl implements UserService {
             return user.getPassword().equals(password);
         }
         return false;
+    }
+
+    public List<User> getTop3UsersByPoints() {
+        return userRepository.findTop3UsersByPoints();
     }
 }
