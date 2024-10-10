@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import com.example.workshop2024.entities.Session;
+import com.example.workshop2024.entities.User;
 import com.example.workshop2024.projections.AverageProjection;
 import com.example.workshop2024.projections.SessionProjection;
 
@@ -32,5 +33,7 @@ public interface SessionRepository extends JpaRepository<Session, Integer> {
                         @Param("endDate") LocalDate endDate);
 
         Optional<SessionProjection> findFirstByUser_IdUserOrderBySessionDateDesc(int idUser);
+
+        Session findByUserOrderBySessionDateDesc(User user);
 
 }
