@@ -27,6 +27,9 @@ public class Landing {
     @Column(name="points_required")
     private int pointsRequired;
 
+    @Column(name="done")
+    private boolean done;
+
     @ManyToOne
     @JoinColumn(name="id_user")
     private User user;
