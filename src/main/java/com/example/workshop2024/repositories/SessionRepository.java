@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import com.example.workshop2024.entities.Session;
+import com.example.workshop2024.entities.User;
 import com.example.workshop2024.projections.AverageProjection;
 
 public interface SessionRepository extends JpaRepository<Session, Integer> {
@@ -17,5 +18,7 @@ public interface SessionRepository extends JpaRepository<Session, Integer> {
             "AND s.user.id = :idUser")
     AverageProjection findAverage(@Param("idUser") int idUser, @Param("startDate") LocalDate startDate,
             @Param("endDate") LocalDate endDate);
+
+        Session findByUserOrderBySessionDateDesc(User user);
 
 }
